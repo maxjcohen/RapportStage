@@ -1,7 +1,13 @@
 \documentclass[12pt]{article}
 \usepackage[utf8]{inputenc}
-
+\usepackage{graphicx}
 \usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=magenta,
+}
+\graphicspath{ {./images/} }
 
 \title{Rapport stage}
 \author{Max Cohen}
@@ -18,8 +24,18 @@
 \section{Introduction}
 
 \subsection{Context}
-The building industry in France makes for over 40\% of the total energy consumption, as well as almost a quarter of greenhouse emissions, as stated by the Loi Grenelle\footnote{\href{https://www.legifrance.gouv.fr/loda/id/JORFTEXT000020949548/2020-09-21/}{Loi Grenelle I, Article 3}} (August 2009), and thus stands as the main industry to tackle when aiming at immediate energy savings. The Fench State acted on this statement by setting a 38\% reduction objective in the consumption of the building industry for 2020\footnote{\href{https://www.legifrance.gouv.fr/loda/id/JORFTEXT000020949548/2020-09-21/}{Loi Grenelle I, Article 5}}, through the renovation of 400 000 apartments per year. Six years later, the amount was raised to 500 000 per year, by the LTECV \footnote{\href{https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000031044385/}{Loi relative à la Transition Energétique pour la Croissance Verte, Article 3}}.
-\footnote{\href{https://laffairedusiecle.net/argumentaire-memoire-complementaire/}{Memoire complémentaire de l'Affaire du Siècle, 2019}}.
+In 2009, the buidling industry accounted for over 40\% (see \ref{consumption_repartition}) of the total French energy consumption, as well as almost a quarter of greenhouse emissions (Loi Grenelle\footnote{\href{https://www.legifrance.gouv.fr/loda/id/JORFTEXT000020949548/2020-09-21/}{Loi Grenelle I, Article 3}}). In the ecological context where energy waste can no longer be ignored, bridging the energy efficiency gap of the buidling industry would be the first step in reducing the State impact on the environnement\footnote{\href{http://temis.documentation.developpement-durable.gouv.fr/docs/Temis/0067/Temis-0067836/18854.pdf}{Plan d'action national en faveur des énergies renouvelables}}. This translated as a 38\% reduction objective in the consumption of the building industry for 2020\footnote{\href{https://www.legifrance.gouv.fr/loda/id/JORFTEXT000020949548/2020-09-21/}{Loi Grenelle I, Article 5}}, through the renovation of 400 000 apartments per year.
+
+\begin{figure}
+    \caption{French consumption repartition (\href{https://www.ecologie.gouv.fr/action-france-lefficacite-energetique}{Action de la France pour l’efficacité énergétique})}
+    \centering
+    \includegraphics[width=0.8\textwidth]{consumption_evolution_1970_2015.jpg}
+    \label{consumption_repartition}
+\end{figure}
+
+Amid the anticipation of the Paris Aggreement, that would eventually require from each endorsing country to communicate their own yearly greenhouse emissions\footnote{\href{https://unfccc.int/files/meetings/paris_nov_2015/application/pdf/paris_agreement_english_.pdf}{Paris Agreement}}, the government issued a new law regarding the ecological transition: the LTECV. It's contribution toward building energy efficiency mainly revolves around improving and speeding up the renovation effort, raising the previous objective to 500 000 apartments per year\footnote{\href{https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000031044385/}{Loi relative à la Transition Energétique pour la Croissance Verte, Article 3}}.
+
+However, depsite setting higher and higher objectives toward renovating the French buidling park, the government still falls short in terms of results, as stated by the Ademe (Agency for the environnement and energy)\footnote{\href{https://www.lefigaro.fr/conjoncture/accord-de-paris-pourquoi-les-pays-ne-sont-pas-a-la-hauteur-de-leurs-engagements-20190419}{Hervé Lefebvre, head of the Climat departiement of the Ademe, 2019}}. According to the National Low-Carbon Strategy (SNBC), the average number of yearly renovation only reaches 370 000 for the period 2015-2030\footnote{\href{https://www.ecologie.gouv.fr/strategie-nationale-bas-carbone-snbc}{Stratégie Nationale Bas-Carbone (SNBC)}}.
 
 \subsection{Oze-Energies}
 
