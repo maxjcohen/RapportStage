@@ -1,0 +1,87 @@
+\begin{table}
+	\centering
+	\begin{tabular}{@{}llll@{}}
+		Variable                             & Minimum & Maximum & Step \\ \midrule
+		airchange\_infiltration\_vol\_per\_h & 0.1     & 0.5     & 0.1  \\
+		capacitance\_kJ\_perdegreK\_perm3    & 50      & 300     & 10   \\
+		power\_VCV\_kW\_heat                 & 0       & 1000    & 100  \\
+		power\_VCV\_kW\_clim                 & 0       & 1000    & 100  \\
+		nb\_occupants                        & 1000    & 2000    & 200  \\
+		nb\_PCs                              & 1000    & 2000    & 200  \\
+		percent\_light\_night                & 0       & 70      & 10   \\
+		percent\_PCs\_night                  & 0       & 70      & 10   \\
+		facade\_1\_thickness\_2              & 0.05    & 0.15    & 0.05 \\
+		facade\_2\_thickness\_2              & 0.05    & 0.15    & 0.05 \\
+		facade\_3\_thickness\_2              & 0.05    & 0.15    & 0.05 \\
+		facade\_4\_thickness\_2              & 0.05    & 0.15    & 0.05 \\
+		roof\_1\_thickness\_3                & 0.05    & 0.15    & 0.05 \\
+		facade\_1\_window\_area\_percent     & 40      & 50      & 5    \\
+		facade\_2\_window\_area\_percent     & 40      & 50      & 5    \\
+		facade\_3\_window\_area\_percent     & 40      & 50      & 5    \\
+		facade\_4\_window\_area\_percent     & 40      & 50      & 5    \\
+		\bottomrule                                                     \\
+	\end{tabular}
+	\caption{$\theta\_buidling$ ranges.}
+	\label{tab:theta-building}
+
+\end{table}
+
+\begin{table}
+	\centering
+	\begin{tabular}{@{}llll@{}}
+		Variable                & Minimum & Maximum & Step \\ \midrule
+		start\_clim\_day        & 7       & 9       & 1    \\
+		end\_clim\_day          & 18      & 20      & 1    \\
+		t\_clim\_red\_day       & 24      & 30      & 0.5  \\
+		t\_clim\_conf\_day      & 20      & 24      & 0.5  \\
+		start\_heat\_day        & 6       & 8       & 1    \\
+		end\_heat\_day          & 17      & 19      & 1    \\
+		t\_heat\_red\_day       & 17      & 22      & 0.5  \\
+		t\_heat\_conf\_day      & 22      & 24      & 0.5  \\
+		start\_ventilation\_day & 7       & 9       & 1    \\
+		end\_ventilation\_day   & 18      & 20      & 1    \\
+		t\_ventilation\_day     & 18      & 26      & 0.5  \\
+		vol\_ventilation\_day   & 0.7     & 1.7     & 0.3  \\
+		\bottomrule                                        \\
+	\end{tabular}
+	\caption{$I_k$ ranges. Each parameter can hold a different value for each day of the week. For ease of reading, we replaced them by a single line, as the ranges are the same for every day.}
+	\label{tab:Ik}
+
+\end{table}
+
+\begin{table}
+	\centering
+	\begin{tabular}{@{}llll@{}}
+		Variable                     & Minimum & Maximum & Step \\ \midrule
+		start\_occupation\_monday    & 7       & 9       & 1    \\
+		start\_occupation\_tuesday   & 7       & 9       & 1    \\
+		start\_occupation\_wednesday & 7       & 9       & 1    \\
+		start\_occupation\_thursday  & 7       & 9       & 1    \\
+		start\_occupation\_friday    & 7       & 9       & 1    \\
+		end\_occupation\_monday      & 17      & 20      & 1    \\
+		end\_occupation\_tuesday     & 17      & 20      & 1    \\
+		end\_occupation\_wednesday   & 17      & 20      & 1    \\
+		end\_occupation\_thursday    & 17      & 20      & 1    \\
+		end\_occupation\_friday      & 17      & 20      & 1    \\
+		\bottomrule                                             \\
+	\end{tabular}
+	\caption{$O_k$ ranges.}
+	\label{tab:Ok}
+\end{table}
+
+\begin{table}
+	\centering
+	\begin{tabular}{*2c}
+		Variable & Description                    \\ \midrule
+		DNI      & Direct Normal Irradiance       \\
+		IBEAM\_H & Direct Horizontal Irradiance   \\
+		IBEAM\_N & Direct Normal Irradiance       \\
+		IDIFF\_H & Diffuse Horizontal Irradiation \\
+		IGLOB\_H & Global Horizontal Irradiance   \\
+		RHUM     & Humidity                       \\
+		TAMB     & Outdoor temperature            \\
+		\bottomrule                               \\
+	\end{tabular}
+	\caption{Weather data as contained in $W_k$.}
+	\label{tab:Wk}
+\end{table}

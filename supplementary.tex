@@ -1,0 +1,84 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{dsfont}
+\usepackage{enumerate}
+\usepackage{hyperref}
+\usepackage{amsmath,color}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage[table,xcdraw]{xcolor}
+\newcommand{\eqsp}{\,}
+
+\graphicspath{ {images/} }
+
+
+\title{End-to-end deep metamodeling to calibrate and optimize energy loads - Supplementary material}
+
+\begin{document}
+\maketitle
+
+\section{Dataset}
+\subsection{Inputs}
+The dataset is divided in four sub-variables, each representing a different aspect of the simulation. When creating the dataset using the Building Energy Model (here TRNSYS), we sampled each variable uniformly in a given interval. These intervals  are also used for the calibration process.
+
+\begin{enumerate}[-]
+    \item $\theta_{building}$ represents the geometric properties of the building, see Table~\ref{tab:theta-building}.
+    \item $I_k$ stores the schedules and settings of the heating and ventilation, see  Table~\ref{tab:Ik}. This is the only parameter tuned during the optimization process.
+    \item $O_k$ stores the occupation schedules of the building, see Table~\ref{tab:Ok}. These values are calibrated to match real data, and kept fixed during the optimization.
+    \item $W_k$ stores the weather data for the week, see Table~\ref{tab:Wk}. In this paper, we exclusively use data collected by weather institutes, that are available afterward. In practice, these data would be replaced by weather forecasts.
+\end{enumerate}
+
+The distribution of the outdoor temperature can be found in Figure~\ref{fig:dataset_input_distribution}. We sampled a total of 40 000 examples for our dataset, of which 38 000 were used for training, 1 000 for validation and 1000 for testing purposes.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{dataset_distribution_Z_168h.png}
+    \caption{Distribution of the outdoor temperature in the dataset, stored in the \texttt{T\_AMB} variable in the Table~\ref{tab:Wk}. Squares indicates the mean value, while vertical bars represent 85\% of the data.}
+    \label{fig:dataset_input_distribution}
+\end{figure}
+
+\input{appendix/ranges.tex}
+
+\subsection{Outputs}
+The BEM outputs 8 simulated variables at each time step, representing inside temperature as well as various consumption. These variables are aggregated differently during calibration and optimization. Since the metamodel aims at replicating the BEM behavior, it is trained to output these same 8 variables. See Table~\ref{tab:output_variables} for a exhaustive list and description of each one. Their distributions in the dataset can be found in Figure~\ref{fig:dataset_output_distribution}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.95\textwidth]{dataset_distribution_X_168h.png}
+    \caption{Distribution of the output variables of the BEM. See Table~\ref{tab:output_variables} for a exhaustive list and description of each one. Squares indicates the mean value, while vertical bars represent 85\% of the data.}
+    \label{fig:dataset_output_distribution}
+\end{figure}
+
+
+\section{Metamodel training}
+In order to find an optimal set of hyper parameters, we conducted a grid search for the Transformer model. A list of each parameter, along with its ranges and final value, can be found in Table~\ref{tab:grid_search}.
+
+\begin{table}
+    \centering
+    \begin{tabular}{*3c}
+        Variable                                     & Tested values   & Chosen value \\ \midrule
+        Latent dimension ($d_{emb}$)                 & 16, 32, 64, 128 & 64           \\
+        Queries ($W^q$) and Keys ($W^k$) matrix size & 4, 8, 16        & 8            \\
+        Values ($W^v$) matrix size                   & 4, 8, 16        & 8            \\
+        Number of heads ($h$)                        & 4, 8, 16        & 8            \\
+        Number of layers ($N$)                       & 4, 8, 16        & 4            \\
+        Attention size ($\Delta$)                    & 6, 12, 24       & 12           \\
+        \bottomrule                                                                   \\
+    \end{tabular}
+    \caption{Hyper parameters tuned during grid search, along with their tested and chosen values.}
+    \label{tab:grid_search}
+\end{table}
+
+\section{Calibration}
+Sensors installed in the building yield two time series.
+\begin{itemize}
+    \item \textbf{Indoor temperature}: we average the values from a set of sensors, in order to obtain a unique indoor temperature value at each time step. This temperature is compared to the simulated indoor temperature (\texttt{T\_INT}).
+    \item \textbf{Heat consumption}: we define building heat consumption as the sum of multiple private heat consumptions obtained from sensors. This variable contains the heating consumption (corresponding to \texttt{Q\_HEAT\_OFFICE} for the metamodel), as well as the heating AHU consumption (\texttt{Q\_AHU\_HEAT}), and the equipment and lighting consumption (\texttt{Q\_EQP} and \texttt{Q\_LIGHT} respectively), see Table~\ref{tab:output_variables} for a description of the metamodel output variables. These four simulated variables are summed and compared to the real heat consumption.
+\end{itemize}
+
+\input{appendix/labels.tex}
+
+\end{document}
