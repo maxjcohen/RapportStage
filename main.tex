@@ -66,6 +66,16 @@ In order to accurately predict the best management settings for a building, the 
 
 Oze-Energies was created in 2014, and currently covers over 3 millions $m^2$ over 500 buildings, \cite{}. During the COVID-19 epidemic, air quality improvement becomes a pillar of any indoor sanitary measure. Oze-Energies is able to use years of experience in air quality management, in addition to being able to alert on any potential risk, to help creating a safe workplace.
 
+\subsection{Optimizing comfort and energy consumption}
+During my internship, I joined the Research and Development team at Oze-Energies, that focuses on using TRNSYS to automatically generate management road maps for buildings.
+
+TRNSYS is an energy simulation software, that is able to simulate the state of a building (interior temperature, consumption) from a precise description of the building (see appendix), weather data and a set of building management settings. Because the software simulates theoretical heat exchanges, and our knowledge of the geometry of the building is often limited, calibration is a mandatory step if we wish to approximate the behavior of a building. In other words, before being able to predict how a building will react to various heating or AC settings, we have to produce an estimation of the characteristics of the building: thermal capacity, volume of airflow exchanges, length of the isolation, window surface, etc.
+
+Once calibrated, we can tune the management settings (comfort and reduced temperature for the HVAC system, starting and stopping schedules, etc.) in order to reduce consumption as mush as possible, while improving comfort as well. This is a multi objective optimization problem, as improving comfort usually results in higher costs in AC or heating consumption, but we are able to achieve a compromise that usually greatly improves on the current building situation.
+
+Both of the calibration and optimization steps require running an iterative algorithm that can take hundred of thousands of calls to TRNSYS before converging. Considering that a single TRNSYS simulation involves solving complex numerical problems, resulting in computation times no less than 2 seconds, it is plain to see how running these algorithms all the way through convergence is not achievable in practice.
+
+I joined the R\&D team of Oze-Energies in order to speed up the computation time, by using a metamodel of the original TRNSYS software. Training such a model can be quite a time expensive task, but the gain during the calibration and optimization tasks easily makes up for it. The next improvement for the R\&D department after my internship consists in grouping similarly behaving buildings, in order to use a common metamodel for each. With this objective in mind, the initial cost of training a metamodel drops further.
 
 \section{Objectives}
 \textcolor{red}{Link between Company introduction and paper introduction}.
