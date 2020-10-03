@@ -36,7 +36,12 @@
 
 \subsection{Resumé}
 
-\section{Remerciements}
+\section{Thanks}
+I would like to thank the entire team of Oze-Energies for welcoming me, and in particular Maurice Charbit who didn't hesitate to spend countless hours to explain me the responsibility of the R\&D department, the every mechanics of the existing solution, and the ins and outs of working in building management.
+
+I am particularly thankful to Sylvain LeCorff, without whom this very internship could not have happened, and who kept guiding me through my exploration of Oze-Energies and the vast field of statistics.
+
+A special thank to the image department ARTEMIS, who accepted to suffer the long brainstorming sessions completely unrelated to anything visual. 
 
 \section{Company}
 
@@ -78,8 +83,15 @@ Both of the calibration and optimization steps require running an iterative algo
 I joined the R\&D team of Oze-Energies in order to speed up the computation time, by using a metamodel of the original TRNSYS software. Training such a model can be quite a time expensive task, but the gain during the calibration and optimization tasks easily makes up for it. The next improvement for the R\&D department after my internship consists in grouping similarly behaving buildings, in order to use a common metamodel for each. With this objective in mind, the initial cost of training a metamodel drops further.
 
 \section{Objectives}
-
+\subsection{Technical objectives}
 During my internship, we proposed a new end-to-end methodology to optimize the energy performance and the comfort, air quality and hygiene of large buildings. A metamodel based on a Transformer network was introduced and trained using a dataset sampled with a simulation program (TRNSYS). Then, a few physical parameters and the building management system settings of this metamodel are calibrated using the CMA-ES optimization algorithm and real data obtained from sensors. Finally, the optimal settings to minimize the energy loads while maintaining a target thermal comfort and air quality are obtained using a multi-objective optimization procedure. The numerical experiments illustrate how this metamodel ensures a significant gain in energy efficiency while being computationally much more appealing than traditional numerical simulator models, requiring a huge number of physical parameters to be estimated.
+
+\subsection{Expectations for Oze-Energies}
+Currently, Energy Managers model each building by a few characteristics variables (size of the isolation, number of occupants, usage, etc.). This model is then sent to the R\&D team who will run the calibration and optimization step, only to send back the results to the Energy Managers, who are responsible for issuing road maps. This back and forth slows down the global process considerably, and should be, in term, replaced by a solution to be used by the Energy Managers. Because their expertise doesn't lie in development or computer science, it is important that this solution be usable without any prior knowledge. From a technical point of vue, this also justifies the development of an end-to-end methodology on my end.
+
+\subsection{Personal formation}
+This internship is also an opportunity for me to deepen my knowledge in statistics, optimization and deep learning. All through these six month, my personal formation is always an underlying objective, that translates itself in compiling reviews of optimization and building management research, learning how results in hidden state models can be applied to neural networks, or improving the quality of my code.
+
 
 \section{Related works}
 Global energy demand for heating, ventilation and air-conditioning  in commercial or public buildings has been increasing rapidly for the past few decades along with population and economic growth. This rising demand is at the root of the complex problem of simultaneously ensuring a better environmental impact, as higher consumption of fossil fuels implies higher greenhouse gas emissions, while maintaining a satisfactory comfort in buildings (air and indoor temperature quality). In that respect, building designing and management have to integrate thermal performance and comfort criteria, and to assess the environmental consequences of any chosen policy. This makes the analysis of building energy performance a challenging multi-criteria problem, as detailed for instance in \cite{Bre2016ResidentialBD}. We set the focus on analyzing and optimizing cooling, heating and air conditioning loads by tuning the building management system in given buildings without costly, invasive or time consuming renovation works. The aim is to provide the optimal building management settings, governing Heating, Ventilation and Air-Conditioning (HVAC) and Air Handling Units (AHU), in order to improve thermal comfort, energy loads as well as environmental impact. This objective is decomposed into three steps: (i) provide a model to predict future energy loads and temperature in a building based on the HVAC system and the weather forecast, (ii) calibrate the parameters of this model based on real data obtained in real time in each building and (iii) optimize the HVAC equipment to minimize the total energy load in future periods while maintaining a given thermal comfort.
@@ -290,15 +302,23 @@ Following recent works in building energy optimization, we search for a set of o
 \end{figure}
 
 \section{Conclusion}
-%Optimizing building energy consumption is a challenging task, due to the need for carefully integrated sensors in the building, the multi objective nature of the problem, as well as the computational cost of calibration or optimization procedures. For this reason, most related works focus one a single aspect of the problem. 
+%Optimizing building energy consumption is a challenging task, due to the need for carefully integrated sensors in the building, the multi objective nature of the problem, as well as the computational cost of calibration or optimization procedures. For this reason, most related works focus one a single aspect of the problem.
+\subsection{Results}
 We proposed an end-to-end metamodeling methodology to optimize building energy loads and to reduce computational costs. The proposed metamodel ensures compatibility between simulations and real building observations through a calibration step. We experimented with various deep learning architectures more suited to recurrent problems than Feed Forward Networks. Results show that a wide variety of models display encouraging results on our sampled dataset, while largely outperforming FFN. During optimization, we chose to maintain the same level of comfort as the historical data, in order to have as little impact as possible on the working environment. Compared to calibrated simulations, we were able to reduce consumption significantly.
 
-This metamodel approach significantly improves on the existing optimization method of the R\&D department of Oze-Energies, mainly by reducing computation time. Our experiments show that a model can be calibrated and optimized in no more than a few hours, allowing for many optimization strategies to be assessed in the span of a single day. Indeed, if the metamodel is currently only being used by the R\&D, it's underlying purpose is eventually to become a supporting tool for the Energy Managers in establishing road maps.
+This metamodel approach significantly improves on the existing optimization method of the R\&D department of Oze-Energies, mainly by reducing computation time. Our experiments show that a model can be calibrated and optimized in no more than a few hours, allowing for many optimization strategies to be assessed in the span of a single day. Indeed, if the metamodel is currently only being used by the R\&D, it's underlying purpose is eventually to become a supporting tool for the Energy Managers in establishing road maps, and thus requires to run simulations in a limited amount of time.
 
+\subsection{Perspectives}
+There are many approaches to reducing the computation time of the R\&D pipeline, but the metamodel actually offers more than just a computationally cheap alternative to TRNSYS. Considering the encouraging results in calibrating and optimizing for a single building, we are now considering using a single neural network to model a group of similarly behaving buildings. By training on such a cluster, we further reduce the initial cost of the metamodel compared to the original TRNSYS, but we also gain deeper knowledge of the most influential inter-building variables, and their impact.
 
-There are many approaches to reducing the computation time of the R\&D pipeline, but the metamodel actually offers more than just a computationally cheap alternative to TRNSYS. Since we've developed a statistical model that currently mimics a set behavior, we can use our knowledge in statistics and hidden state models to measure the uncertainty, or add a model noise to match the existing building noise for instance. 
+The metamodel can also be interpreted as a classic hidden markov model, allowing for various opportunity of improvement. For instance, by adding model noise to the existing architecture, we can evaluate the uncertainty of the model, and provide confidence intervals along each prediction. If this provides a good validation of the model from a statistical point of vue, it also contributes to the edition of more plausible road maps for Oze-Energies' clients.
 
-\textcolor{red}{Add conclusion of internship}
+\subsection{Personal assessment}
+This internship was first and foremost a unique work experience. During these past six months, I worked along a team of experts dedicated to tackle on the biggest environmental challenges of our generation. If there are more and more professional opportunities for deep learning engineers, rarely do they focus on such essential tasks, and in such an impactful manner. Being able to put to good use my experience in statistics and deep learning to good use was truly a delightful experience.
+
+I was also able to dive into the building management field, and better understand how construction methods, building usage and thermic laws impact our day to day consumption. Thanks to the thermic engineers at Oze-Energies who took the time to explain these processes to me, and convey their motivation, I was able to better grasp the ins and outs of building management.
+
+From a scientific perspective, these six month allowed me discover new aspects of my field, and develop my knowledge in statistics and modelling. They also encouraged me to focus and explore a precise topic of research, an experience which will be without a doubt valuable in the continuation of my career as a PhD student.
 
 \bibliography{references}
 \bibliographystyle{apalike}
