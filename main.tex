@@ -8,7 +8,9 @@
 \usepackage{enumerate}
 \usepackage{booktabs}
 \usepackage{graphicx}
-\usepackage{hyperref}
+\usepackage[breaklinks]{hyperref}
+\usepackage[hyphenbreaks]{breakurl}
+\emergencystretch 2em%
 \hypersetup{
     colorlinks=true,
     linkcolor=blue,
@@ -18,14 +20,21 @@
 
 \newcommand{\eqsp}{\,}
 
-\title{Rapport stage}
+\title{Analysis of metamodel performance for dynamic systems and data}
 \author{Max Cohen}
 \date{September 2020}
 
 \begin{document}
 
 \begin{titlepage}
+
     \maketitle
+
+    \begin{center}
+        \includegraphics[width=0.2\textwidth]{IPP_Endos_TelecomSudParis_RVB.png}
+        \includegraphics[width=0.2\textwidth]{oze_logo.png}    
+    \end{center}
+
 \end{titlepage}
 
 \tableofcontents
@@ -45,22 +54,24 @@ I am particularly thankful to Sylvain LeCorff, without whom this very internship
 
 A special thank to the image department ARTEMIS, who accepted to suffer the long brainstorming sessions completely unrelated to anything visual. 
 
+\newpage
+
 \section{Company}
 \label{sec:company}
 
 \subsection{Context}
-In 2009, the building industry accounted for over 40\% (see \ref{consumption_repartition}) of the total French energy consumption, as well as almost a quarter of greenhouse emissions (Loi Grenelle\footnote{\href{https://www.legifrance.gouv.fr/loda/id/JORFTEXT000020949548/2020-09-21/}{Loi Grenelle I, Article 3}}). In the ecological context where energy waste can no longer be ignored, bridging the energy efficiency gap of the building industry would be the first step in reducing the State impact on the environnement\footnote{\href{http://temis.documentation.developpement-durable.gouv.fr/docs/Temis/0067/Temis-0067836/18854.pdf}{Plan d'action national en faveur des énergies renouvelables}}. This translated as a 38\% reduction objective in the consumption of the building industry for 2020, through the renovation of 400 000 apartments per year\footnote{\href{https://www.legifrance.gouv.fr/loda/id/JORFTEXT000020949548/2020-09-21/}{Loi Grenelle I, Article 5}}.
+In 2009, the building industry accounted for over 40\% (see Figure~\ref{fig:consumption_repartition}) of the total French energy consumption, as well as almost a quarter of greenhouse emissions (Loi Grenelle\footnote{\href{https://www.legifrance.gouv.fr/loda/id/JORFTEXT000020949548/2020-09-21/}{Loi Grenelle I, Article 3}}). In the ecological context where energy waste can no longer be ignored, bridging the energy efficiency gap of the building industry would be the first step in reducing the State impact on the environnement\footnote{\href{http://temis.documentation.developpement-durable.gouv.fr/docs/Temis/0067/Temis-0067836/18854.pdf}{Plan d'action national en faveur des énergies renouvelables}}. This translated as a 38\% reduction objective in the consumption of the building industry for 2020, through the renovation of 400 000 apartments per year\footnote{\href{https://www.legifrance.gouv.fr/loda/id/JORFTEXT000020949548/2020-09-21/}{Loi Grenelle I, Article 5}}.
+
+Amid the anticipation of the Paris Agreement, that would eventually require from each endorsing country to communicate their own yearly greenhouse emissions\footnote{\href{https://unfccc.int/files/meetings/paris_nov_2015/application/pdf/paris_agreement_english_.pdf}{Paris Agreement}}, the government issued a new law regarding the ecological transition: the LTECV. It's contribution toward building energy efficiency mainly revolves around improving and speeding up the renovation effort, raising the previous objective to 500 000 apartments per year\footnote{\href{https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000031044385/}{Loi relative à la Transition Energétique pour la Croissance Verte, Article 3}}.
+
+However, despite setting higher and higher objectives toward renovating the French building park, the government still falls short in terms of results, as stated by the Ademe (Agency for the environnement and energy)\footnote{\href{https://www.lefigaro.fr/conjoncture/accord-de-paris-pourquoi-les-pays-ne-sont-pas-a-la-hauteur-de-leurs-engagements-20190419}{Hervé Lefebvre, head of the Climat departiement of the Ademe, 2019}}. According to the National Low-Carbon Strategy (SNBC), the average number of yearly renovation only reaches 370 000 for the period 2015-2030\footnote{\href{https://www.ecologie.gouv.fr/strategie-nationale-bas-carbone-snbc}{Stratégie Nationale Bas-Carbone (SNBC)}}.
 
 \begin{figure}
     \caption{French consumption repartition (\href{https://www.ecologie.gouv.fr/action-france-lefficacite-energetique}{Action de la France pour l’efficacité énergétique})}
     \centering
     \includegraphics[width=0.8\textwidth]{consumption_evolution_1970_2015.jpg}
-    \label{consumption_repartition}
+    \label{fig:consumption_repartition}
 \end{figure}
-
-Amid the anticipation of the Paris Agreement, that would eventually require from each endorsing country to communicate their own yearly greenhouse emissions\footnote{\href{https://unfccc.int/files/meetings/paris_nov_2015/application/pdf/paris_agreement_english_.pdf}{Paris Agreement}}, the government issued a new law regarding the ecological transition: the LTECV. It's contribution toward building energy efficiency mainly revolves around improving and speeding up the renovation effort, raising the previous objective to 500 000 apartments per year\footnote{\href{https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000031044385/}{Loi relative à la Transition Energétique pour la Croissance Verte, Article 3}}.
-
-However, despite setting higher and higher objectives toward renovating the French building park, the government still falls short in terms of results, as stated by the Ademe (Agency for the environnement and energy)\footnote{\href{https://www.lefigaro.fr/conjoncture/accord-de-paris-pourquoi-les-pays-ne-sont-pas-a-la-hauteur-de-leurs-engagements-20190419}{Hervé Lefebvre, head of the Climat departiement of the Ademe, 2019}}. According to the National Low-Carbon Strategy (SNBC), the average number of yearly renovation only reaches 370 000 for the period 2015-2030\footnote{\href{https://www.ecologie.gouv.fr/strategie-nationale-bas-carbone-snbc}{Stratégie Nationale Bas-Carbone (SNBC)}}.
 
 \subsection{Oze-Energies}
 
@@ -70,9 +81,17 @@ The premise of building management at Oze is the ability to produce tailored roa
 
 OPTIMZEN® targets tertiary buildings, whose occupation behavior are usually well understood (workday hours, no occupation during the weekend, no heavy machinery creating heat beside computers and lighting systems), as well as residential buildings. The analysis of the building, as well as regular road maps for the building maintainer are delivered for a recurring subscription, usually largely covered by the energy savings generated.
 
-In order to accurately predict the best management settings for a building, the impact of various policy are simulated and compared using a numerical simulators. This expert software, TRNSYS, is calibrated to match the real building by a machine learning procedure, using sensor data collected. Since a wide variety of building behavior can be encountered, due to the number of heat, cold or electricity providers for instance, this calibration step becomes more and more important as Oze-Energies acquires new clients.
+In order to accurately predict the best management settings for a building, the impact of various policy are simulated and compared using a numerical simulators. This expert software, TRNSYS, is calibrated to match the real building by a machine learning procedure, using sensor data collected (see Figure ~\ref{fig:building_model}). Since a wide variety of building behavior can be encountered, due to the number of heat, cold or electricity providers for instance, this calibration step becomes more and more important as Oze-Energies acquires new clients.
 
-Oze-Energies was created in 2014, and currently covers over 3 millions $m^2$ over 500 buildings, \cite{}. During the COVID-19 epidemic, air quality improvement becomes a pillar of any indoor sanitary measure. Oze-Energies is able to use years of experience in air quality management, in addition to being able to alert on any potential risk, to help creating a safe workplace.
+Oze-Energies was created in 2014, and currently covers over 3 millions $m^2$ over 500 buildings. During the COVID-19 epidemic, air quality improvement becomes a pillar of any indoor sanitary measure. Oze-Energies is able to use years of experience in air quality management, in addition to being able to alert on any potential risk, to help creating a safe workplace.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.48\textwidth]{bat.jpg}
+    \includegraphics[width=0.48\textwidth]{batschem.jpg}
+    \caption{Oze-Energies model buildings based on a schematic view of the building and a simulator for transient systems.}
+    \label{fig:building_model}
+\end{figure}{}
 
 \subsection{Optimizing comfort and energy consumption}
 During my internship, I joined the Research and Development team at Oze-Energies, that focuses on using TRNSYS to automatically generate management road maps for buildings.
@@ -106,8 +125,7 @@ These approaches rely on a huge number of parameters, such as window to wall rat
 
 % The use of physical simulators is widespread in several fields such as renewable energy and building simulation, but despite their huge potential, due to the numerous nonlinear solvers they are based on, they often lead to excessive computation time in an calibration or optimization framework \cite{}. 
 
-Metamodeling approaches aim at overcoming this computational cost by proposing surrogate models that replace the physical simulator during calibration and optimization tasks. The parameters of such metamodels are estimated during a training phase using simulations conducted by a physical-based model, that aims at exhaustively capturing the building behavior for various building management settings.
-In \cite{Bre2020AnEM, Reynolds2018AZB}, statistical models are trained on a dataset sampled from EnergyPlus, allowing significant computational savings during optimization. In \cite{Bre2020AnEM}, the authors proposed to combine NSGA-II with an artificial neural network metamodel to obtain a Pareto front of optimal HVAC parameters with the trained metamodel, in order to optimize the consumption of a $83\,\mathrm{m}^2$ house. %A training and validation dataset were sampled independently using the Latin Hypercube Sampling, introduced in \cite{McKay2000ACO}, to ensure that both splits are representative of the input space. 
+Metamodeling approaches aim at overcoming this computational cost by proposing surrogate models that replace the physical simulator during calibration and optimization tasks. The parameters of such metamodels are estimated during a training phase using simulations conducted by a physical-based model, that aims at exhaustively capturing the building behavior for various building management settings. In \cite{Bre2020AnEM, Reynolds2018AZB}, statistical models are trained on a dataset sampled from EnergyPlus, allowing significant computational savings during optimization. In \cite{Bre2020AnEM}, the authors proposed to combine NSGA-II with an artificial neural network metamodel to obtain a Pareto front of optimal HVAC parameters with the trained metamodel, in order to optimize the consumption of a $83\,\mathrm{m}^2$ house. %A training and validation dataset were sampled independently using the Latin Hypercube Sampling, introduced in \cite{McKay2000ACO}, to ensure that both splits are representative of the input space. 
 To fit this dataset, instead of standard statistical models, %such as polynomial regression, multivariate adaptive regression splines or Gaussian processes, 
 this paper uses a Feed Forward Neural Network (FFN) as a metamodel. Although they often yield very accurate predictions, these neural networks are not adapted to time series problems, and are usually substituted for there sequential counter parts, such as recurrent or convolutional based approaches. This FFN was only validated with EnergyPlus simulations, and the calibration step was not performed, as no real historic data from the targeted building were discussed. Similarly, \cite{Reynolds2018AZB} proposed a FFN based metamodeling approach to reduce up to 25\% the energy consumption in a small office building. EnergyPlus was used to sample a dataset for various zones of the building, in order to train zone level metamodels. These simulation spread over 24 hours, and approximated the building behavior from January to March. Once again, in the absence of real historic data, no calibration step was implemented. The first optimization method is similar to previous works, and consists in optimizing consumption by feeding NSGA-II each metamodel. In a novel approach, optimization can also be updated every hour with the newly collected data from the building, in hope to avoid the error drift of simulating 24 hours of building behavior without any feedback. The study presented in \cite{Magnier2010MultiobjectiveOO} focused on the optimization of a $210\,\mathrm{m}^2$ two storey house. Despite measured data being available, no automatic calibration step was discussed ; instead, TRNSYS was calibrated by hand to match the real building, resulting in relative errors of 3.7\%, 3.4\%, and 7.3\% for heating, cooling, and fan monthly energy consumption, respectively. A FFN surrogate model was fit on a dataset of 450 samples, before being optimized using once again NSGA-II. %Although a great deal of research has been devoted to optimize energy consumption, in our paper, we propose an end-to-end methodology which aims at overcoming the following issues of existing approaches: (i) (ii).
 
@@ -124,13 +142,13 @@ Let $(X_k)_{k\geqslant 0}$ be the state of the building i.e. the inside temperat
 A sequence $(W_k,O_k,I_k)_{k\geqslant 0}$ providing at each hour the building management system variables in $I_k$ (comfort and reduced temperatures for the HVAC), the occupancy $O_k$ (described as a percentage of a given maximum number of people) and in $W_k$ the weather data at time $k$. In this section, we describe how a simulation program may be used to train the metamodel which aims at mimicking the outputs of this simulation program for  various choices of $\theta_{\mathrm{build}}$, $(I_k)_{k\geqslant 0}$, $(O_k)_{k\geqslant 0}$ and of meteorological data $(W_k)_{k\geqslant 0}$. The supplementary material displays a complete list is of the variables contained in $\theta_{\mathrm{build}}$, $(I_k)_{k\geqslant 0}$, $(O_k)_{k\geqslant 0}$ and in $(W_k)_{k\geqslant 0}$ for our numerical experiment.
 
 \subsection{Models}
-In most recent works, a great deal of research activities focused on FFN as surrogate models, \cite{Bre2020AnEM,Magnier2010MultiobjectiveOO, Reynolds2018AZB}. Although they may lead to interesting performance during the training phase, these fully connected architectures are not well suited for time series prediction, in particular for long time spans. We ceased this opportunity to explore other approaches that have proven to be more relevant for solving time series tasks in the past few years. Therefore, we decided to evaluate the go-to architectures for time series: a standard LSTM, a bidirectional GRU (BiGRU), a hybrid model mixing both convolutional and GRU layers (ConvGru), and a Feed Forward Network (FFN) as used in previous works.  In addition to those models, a Transformer model which  introduces an attention mechanism to model dependencies is also considered. These models have been implemented using the deep learning framework PyTorch, and can be found on our Github\footnote{https://pytorch.org and https://github.com/maxjcohen/transformer}.
+In most recent works, a great deal of research activities focused on FFN as surrogate models, \cite{Bre2020AnEM, Magnier2010MultiobjectiveOO, Reynolds2018AZB}. Although they may lead to interesting performance during the training phase, these fully connected architectures are not well suited for time series prediction, in particular for long time spans. We ceased this opportunity to explore other approaches that have proven to be more relevant for solving time series tasks in the past few years. Therefore, we decided to evaluate the go-to architectures for time series: a standard LSTM, a bidirectional GRU (BiGRU), a hybrid model mixing both convolutional and GRU layers (ConvGru), and a Feed Forward Network (FFN) as used in previous works.  In addition to those models, a Transformer model which  introduces an attention mechanism to model dependencies is also considered. These models have been implemented using the deep learning framework PyTorch, and can be found on our Github\footnote{https://pytorch.org and https://github.com/maxjcohen/transformer}.
 
 Recurrent Neural Network (RNN) were first introduced as a more suited architecture for dealing with time varying input patterns \cite{Mozer1989AFB}. By replacing buffer based approaches with an updated context state, RNN are able to solve time series problems with short time dependencies, but are lackluster in problems requiring long term memory due to vanishing and exploding gradient \cite{Bengio1994LearningLD}. Long Short Term Memory proposed in \cite{Hochreiter1997LongSM} aim at bridging that gap by enforcing error flow throughout time in the network. Later, \cite{Cho2014LearningPR} modified the LSTM architecture in order to simplify implementation and improve computation times, resulting in a novel model called Gated Recurrent Unit.
 
 In parallel to these advances on recurrent architectures, Convolutional Neural Networks (CNN), rendered popular by \cite{Krizhevsky2012ImageNetCW} for image classification, have been adapted to time series problem. The approaches proposed in \cite{Jzefowicz2016ExploringTL,Kim2016CharacterAwareNL} outperformed traditional Natural Language Processing (NLP) models by replacing the embedding layer with a character-level convolutional layer. Following this idea, \cite{Oord2016WaveNetAG} considerably improved on the speech to text state of the art, by using dilated convolutions, increasing the receptive fields of WaveNet at each layer. One year later, \cite{Oord2017ParallelWF} improved on the existing architecture by introducing Parallel WaveNet, which provided similar performance for a lower computational cost.
 
-Recurrent and convolutional approaches coincide in that temporally close time steps data are matched together. In 2017, \cite{Vaswani2017AttentionIA} proposed an attention based approach to solving NLP tasks that consider the entire input sequence in parallel. The Transformer model is based on a self-attention mechanism, that computes an attention value for every element of a sequence with respect to all others to model their dependency. This attention mechanism allows to understand at each time step $k$ which input elements are crucial to predicting the new state $X_k$. This makes these networks more interpretable than their most widely-used recurrent counterparts such as LSTM or GRU networks and motivate a keen interest for such approach to predict complex time series.
+Recurrent and convolutional approaches coincide in that temporally close time steps data are matched together. In 2017, \cite{Vaswani2017AttentionIA} proposed an attention based approach to solving NLP tasks that consider the entire input sequence in parallel. The Transformer model is based on a self-attention mechanism (see Figure ~\ref{fig:self_attention}), that computes an attention value for every element of a sequence with respect to all others to model their dependency. This attention mechanism allows to understand at each time step $k$ which input elements are crucial to predicting the new state $X_k$. This makes these networks more interpretable than their most widely-used recurrent counterparts such as LSTM or GRU networks and motivate a keen interest for such approach to predict complex time series.
 
 
 Transformer differ from sequential architectures in that they compute prediction at each time step in parallel. In our context, we propose to use a Transformer architecture as follows. Let $F_{\theta_{\mathrm{meta}}}$ be the Transformer mapping which computes a prediction  $(\widehat X_{k})_{1\leqslant k\leqslant n}$ of the states $(X_{k})_{1\leqslant k\leqslant n}$:
@@ -139,7 +157,7 @@ $$
 $$
 where $\theta_{\mathrm{meta}}$ contains all the unknown parameters specific to the metamodel.
 %The first layer of the original Transformer model is a mandatory Embedding layer in NLP tasks, that aims at mapping input words to a meaningful space. 
-Following the state of the art in sequence to sequence modeling, the Transformer  adopts an encoder-decoder architecture. The encoder computes a latent vector from the input data, which is fed to the decoder in order to predict the outputs. These sub-networks are trained jointly and are supposed to foster learning of a meaningful representation of the data. The encoder and decoder consist of a self attention block, responsible for leveraging the relationship between time steps in the sequence, and a feed forward network, which contains the non linearity of the Transformer.
+Following the state of the art in sequence to sequence modeling, the Transformer  adopts an encoder-decoder architecture (see Figure ~\ref{fig:encoder_decoder}). The encoder computes a latent vector from the input data, which is fed to the decoder in order to predict the outputs. These sub-networks are trained jointly and are supposed to foster learning of a meaningful representation of the data. The encoder and decoder consist of a self attention block, responsible for leveraging the relationship between time steps in the sequence, and a feed forward network, which contains the non linearity of the Transformer.
 
 \paragraph{Embedding.}
 Similarly to the original embedding layer,  our metamodel is first based on a linear map, that allows setting the dimension $d_{\mathrm{emb}}$ of the latent representation of the inputs.
@@ -183,7 +201,19 @@ In practice, the self attention computation \eqref{eq:z} is replicated $h$ times
 %For all time step $k\leqslant j\leqslant k+\Delta$, a self attention layer is performed using $(U_\ell)_{k\leqslant \ell\leqslant j}$ to produce a first output as \eqref{eq:z}. Then, the output of this layer is used as an input to compute a hidden representation as in \eqref{eq:qkv}. 
 This produces a vector $z^{\mathsf{enc}}_k$ as in \eqref{eq:z} which is a mixture of the values associated with the latent vectors. This mixture is fed to a FFN to produce $\widehat X_k$.  The parameters to train are therefore $W_{\mathrm{emb}}$, $b_{\mathrm{emb}}$, $\theta_{\mathrm{att}}$ and $W^{q}$, $W^{\kappa}$ and $W^{v}$.
 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{illustration_attentionmap.jpg}
+    \caption{The resulting attention map for the Transformer after inferring a month of data. We can identify day/night cycles, as well as week/weekend.}
+    \label{fig:self_attention}
+\end{figure}{}
 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\textwidth]{illustration_encoder_decoder.png}
+    \caption{The encoder computes a latent vector from the input data, which is fed to the decoder in order to predict the outputs. These sub-networks are trained jointly and are supposed to encourage the Transformer to learn a meaningful representation of the data.}
+    \label{fig:encoder_decoder}
+\end{figure}{}
 
 \subsection{Training and validation}
 \label{sec:training}
@@ -264,10 +294,10 @@ Calibration was run until convergence for the metamodel, and for a maximum of 8 
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.75\textwidth]{calib_week1_private.png}
-    \includegraphics[width=0.75\textwidth]{calib_week1_t_int.png}
-    \includegraphics[width=0.75\textwidth]{calib_week2_private.png}
-    \includegraphics[width=0.75\textwidth]{calib_week2_t_int.png}
+    \includegraphics[width=\textwidth]{calib_week1_private.png}
+    \includegraphics[width=\textwidth]{calib_week1_t_int.png}
+    \includegraphics[width=\textwidth]{calib_week2_private.png}
+    \includegraphics[width=\textwidth]{calib_week2_t_int.png}
     \caption{Consumption and temperature simulations after calibration, for both the metamodel and TRNSYS, for week 1 (top) and week 2 (bottom). Green bars indicate occupation periods.}% Table \ref{tab:calib} contains metrics for this calibration step.}
     \label{fig:calib}
 \end{figure}
@@ -292,7 +322,7 @@ Following recent works in building energy optimization, we search for a set of o
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.3\textwidth]{pareto_week2.png}
+    \includegraphics[width=0.8\textwidth]{pareto_week2.png}
     \caption{Pareto front after optimization for the second week. We select the point of closest equivalent comfort, corresponding to a 9.31\% reduction in consumption.}
     \label{fig:pareto}
 \end{figure}
@@ -300,8 +330,8 @@ Following recent works in building energy optimization, we search for a set of o
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.75\textwidth]{optim_week2_private.png}
-    \includegraphics[width=0.75\textwidth]{optim_week2_t_int.png}
+    \includegraphics[width=\textwidth]{optim_week2_private.png}
+    \includegraphics[width=\textwidth]{optim_week2_t_int.png}
     \caption{Consumption and temperature simulations after optimization (metamodel) for the second week. Green bars indicate occupation periods.} %Consumption is stopped during the night, leading to lower temperature outside occupation periods.}
     \label{fig:timeseriesafteroptim}
 \end{figure}
